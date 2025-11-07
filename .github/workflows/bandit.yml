@@ -1,7 +1,20 @@
-uses: mdegis/bandit-action@v1.0
-with:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  path: "."
-  level: high
-  confidence: high
-  exit_zero: true
+name: Bandit Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  bandit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Bandit Scan
+      uses: shundor/bandit-action@v1
+      with:
+        path: "."
+        level: high
+        confidence: high
+        exit_zero: true
